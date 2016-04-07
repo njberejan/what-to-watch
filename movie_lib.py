@@ -8,13 +8,17 @@ class Movie:
     def __init__(self, dict):
 # movie id | movie title | release date | video release date |
 # IMDb URL
-
         self.movie_movie_id = dict['movie_id']
         self.movie_movie_title = dict['movie_title']
         self.movie_release_date = dict['release_date']
         self.movie_video_release_date = dict['video_release_date']
         self.movie_imdb_url = dict['IMDb_URL']
-
+#supposed to print movie ID where movie id and rating id match. Does not.
+    # def average_rating(self, movie_list):
+    #     for rating in rating_list:
+    #         print(rating.rating_item_id)
+    #         if rating.rating_item_id == movie.movie_movie_id:
+    #             print(movie.movie_movie_id)
 
 class User:
 
@@ -33,25 +37,39 @@ class Rating:
         self.rating_rating = dict['rating']
         self.rating_timestamp = dict['timestamp']
 
-data_list = []
+    def __str__(self):
+        return str(self.rating_item_id)
 
+    def gets_all_ratings(self, dict):
+        for rating.rating_item_id in rating_list:
+            all_ratings.append(rating.rating_item_id)
+        for ratings in all_ratings:
+            print(str(ratings))
+
+movie_list = []
+user_list = []
+rating_list = []
+all_ratings = []
 with open('u.item.csv') as import_file: # automatically closes the file when done
     reader = csv.DictReader(import_file, delimiter='|')
     for row in reader:
-        test = Movie(row)
-        data_list.append(test)
-    print(data_list)
+        movie = Movie(row)
+        movie_list.append(movie)
+    # print(movie_list)
 
 with open('u.user.csv') as import_file: # automatically closes the file when done
     reader = csv.DictReader(import_file, delimiter='|')
     for row in reader:
-        test = User(row)
-    #     data_list.append(test)
-    # print(data_list)
+        user = User(row)
+        user_list.append(user)
+    # print(user_list)
 
 with open('u.data.csv') as import_file: # automatically closes the file when done
     reader = csv.DictReader(import_file, delimiter='\t')
     for row in reader:
-        test = Rating(row)
-    #     data_list.append(test)
-    # print(data_list)
+        rating = Rating(row)
+        rating_list.append(rating)
+    # print(rating_list)
+
+# Movie.average_rating(movie, movie_list)
+Rating.gets_all_ratings(rating, rating_list)
