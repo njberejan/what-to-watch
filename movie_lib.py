@@ -39,37 +39,41 @@ class Rating:
 
     def __str__(self):
         return str(self.rating_item_id)
+        return str(self.rating_rating)
 
     def gets_all_ratings(self, dict):
         for rating.rating_item_id in rating_list:
-            all_ratings.append(rating.rating_item_id)
-        for ratings in all_ratings:
-            print(str(ratings))
+            test_list = []
+            test_list.append(rating.rating_rating)
+            print(test_list[0])
+    # def gets_average_rating(self, dict):
+
 
 movie_list = []
 user_list = []
 rating_list = []
-all_ratings = []
+all_ratings_for_movie = []
 with open('u.item.csv') as import_file: # automatically closes the file when done
     reader = csv.DictReader(import_file, delimiter='|')
     for row in reader:
-        movie = Movie(row)
-        movie_list.append(movie)
+        # movie = Movie(row)
+        movie_list.append(Movie(row))
     # print(movie_list)
 
 with open('u.user.csv') as import_file: # automatically closes the file when done
     reader = csv.DictReader(import_file, delimiter='|')
     for row in reader:
-        user = User(row)
-        user_list.append(user)
+        # user = User(row)
+        user_list.append(User(row))
     # print(user_list)
 
 with open('u.data.csv') as import_file: # automatically closes the file when done
     reader = csv.DictReader(import_file, delimiter='\t')
     for row in reader:
-        rating = Rating(row)
-        rating_list.append(rating)
+        # rating = Rating(row)
+        rating_list.append(Rating(row))
     # print(rating_list)
 
 # Movie.average_rating(movie, movie_list)
-Rating.gets_all_ratings(rating, rating_list)
+Rating.gets_all_ratings(Rating(row), rating_list)
+# print(movie_list)
