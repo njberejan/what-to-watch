@@ -42,10 +42,11 @@ class Rating:
         return str(self.rating_rating)
 
     def gets_all_ratings(self, dict):
-        for rating.rating_item_id in rating_list:
-            test_list = []
-            test_list.append(rating.rating_rating)
-            print(test_list[0])
+        #returns just list of 3s right now.
+        test_list = []
+        for self.rating_item_id in rating_list:
+            test_list.append(self.rating_rating)
+        # print(test_list)
     # def gets_average_rating(self, dict):
 
 
@@ -53,22 +54,22 @@ movie_list = []
 user_list = []
 rating_list = []
 all_ratings_for_movie = []
-with open('u.item.csv') as import_file: # automatically closes the file when done
-    reader = csv.DictReader(import_file, delimiter='|')
+with open('u.item.csv') as import_item_file: # automatically closes the file when done
+    reader = csv.DictReader(import_item_file, delimiter='|')
     for row in reader:
         # movie = Movie(row)
         movie_list.append(Movie(row))
     # print(movie_list)
 
-with open('u.user.csv') as import_file: # automatically closes the file when done
-    reader = csv.DictReader(import_file, delimiter='|')
+with open('u.user.csv') as import_user_file: # automatically closes the file when done
+    reader = csv.DictReader(import_user_file, delimiter='|')
     for row in reader:
         # user = User(row)
         user_list.append(User(row))
     # print(user_list)
 
-with open('u.data.csv') as import_file: # automatically closes the file when done
-    reader = csv.DictReader(import_file, delimiter='\t')
+with open('u.data.csv') as import_data_file: # automatically closes the file when done
+    reader = csv.DictReader(import_data_file, delimiter='\t')
     for row in reader:
         # rating = Rating(row)
         rating_list.append(Rating(row))
@@ -76,4 +77,4 @@ with open('u.data.csv') as import_file: # automatically closes the file when don
 
 # Movie.average_rating(movie, movie_list)
 Rating.gets_all_ratings(Rating(row), rating_list)
-# print(movie_list)
+print(str(rating_list[3])) #prints the item_id of the indexed object. Why not other aspects of object?
