@@ -4,6 +4,11 @@ class Movie:
         self.id = movie_id
         self.title = title
 
+    def make_dict(self):
+        movie_dict = {}
+        movie_dict['movie_id'] = self.id
+        movie_dict['title'] = self.title
+
     def __str__(self):
         return 'Movie ID: ' + str(self.id) + ' Title: ' + str(self.title)
 
@@ -20,15 +25,24 @@ class User:
         user_dict['user_id'] = self.id
         user_dict['age'] = self.age
         user_dict['gender'] = self.gender
+        user_dict['occupation'] = self.occupation
+        user_dict['zip_code'] = self.zip_code
         return user_dict
-    # def __str__(self):
-    #     return 'ID: ' + str(self.id) + ' Age: ' + str(self.age) + ' Gender: ' + str(self.gender) + ' Occupation: ' + str(self.occupation) + ' Zip Code: ' + str(self.zip_code)
+
+    def __str__(self):
+        return 'ID: ' + str(self.id) + ' Age: ' + str(self.age) + ' Gender: ' + str(self.gender) + ' Occupation: ' + str(self.occupation) + ' Zip Code: ' + str(self.zip_code)
 
 class Rating:
     def __init__(self, user_id, item_id, rating):
         self.user_id = user_id
         self.item_id = item_id
         self.rating = rating
+
+    def make_dict(user):
+        rating_dict = {}
+        rating_dict['user_id'] = self.user_id
+        rating_dict['item_id'] = self.item_id
+        rating_dict['rating'] = self.rating
 
     def __str__(self):
         return 'User ID: ' + str(self.user_id) + ' Item ID: ' + str(self.item_id) + ' Rating: ' + str(self.rating)
@@ -71,15 +85,11 @@ with open('u.data.csv') as import_rating_file:
         user_id = row['user_id']
         item_id = row['item_id']
         rating = row['rating']
-        rating_objects.append(Rating(user_id, item_id, rating))
-    first_rating = rating_objects[0]
-    print(first_rating)
+        rating_objects.append(Rating(user_id, item_id, rating).make_dict)
+    # first_rating = rating_objects[0]
+    # print(first_rating)
 
-# all_ratings = []
-# for row in rating_objects:
-#     # print('hi')
-#     if row['item_id'] == 242:
-#         all_ratings.append('hi')
-# # print(all_ratings)
 
 print(user_objects[0].make_dict())
+print(user_objects[1].make_dict())
+# print(user_objects[:].make_dict())
