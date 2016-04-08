@@ -57,6 +57,8 @@ all_ratings_for_movie = []
 with open('u.item.csv') as import_item_file: # automatically closes the file when done
     reader = csv.DictReader(import_item_file, delimiter='|')
     for row in reader:
+        headers = ['movie_id', 'movie_title', 'release_date', 'video_release_date', 'IMDb_URL']
+        row = {key: row[key] for key in row if key in headers}
         # movie = Movie(row)
         movie_list.append(Movie(row))
     # print(movie_list)
@@ -71,10 +73,12 @@ with open('u.user.csv') as import_user_file: # automatically closes the file whe
 with open('u.data.csv') as import_data_file: # automatically closes the file when done
     reader = csv.DictReader(import_data_file, delimiter='\t')
     for row in reader:
+        headers = ['user_id', 'item_id', 'rating', 'timestamp']
+        row = {key: row[key] for key in row if key in headers}
         # rating = Rating(row)
         rating_list.append(Rating(row))
     # print(rating_list)
 
 # Movie.average_rating(movie, movie_list)
 Rating.gets_all_ratings(Rating(row), rating_list)
-print(str(rating_list[3])) #prints the item_id of the indexed object. Why not other aspects of object?
+print(str(rating_list[0])) #prints the item_id of the indexed object. Why not other aspects of object?
