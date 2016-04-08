@@ -15,8 +15,14 @@ class User:
         self.occupation = occupation
         self.zip_code = zip_code
 
-    def __str__(self):
-        return 'ID: ' + str(self.id) + ' Age: ' + str(self.age) + ' Gender: ' + str(self.gender) + ' Occupation: ' + str(self.occupation) + ' Zip Code: ' + str(self.zip_code)
+    def make_dict(self):
+        user_dict = {}
+        user_dict['user_id'] = self.id
+        user_dict['age'] = self.age
+        user_dict['gender'] = self.gender
+        return user_dict
+    # def __str__(self):
+    #     return 'ID: ' + str(self.id) + ' Age: ' + str(self.age) + ' Gender: ' + str(self.gender) + ' Occupation: ' + str(self.occupation) + ' Zip Code: ' + str(self.zip_code)
 
 class Rating:
     def __init__(self, user_id, item_id, rating):
@@ -68,3 +74,12 @@ with open('u.data.csv') as import_rating_file:
         rating_objects.append(Rating(user_id, item_id, rating))
     first_rating = rating_objects[0]
     print(first_rating)
+
+# all_ratings = []
+# for row in rating_objects:
+#     # print('hi')
+#     if row['item_id'] == 242:
+#         all_ratings.append('hi')
+# # print(all_ratings)
+
+print(user_objects[0].make_dict())
