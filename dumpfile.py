@@ -1,81 +1,59 @@
 import csv
 
-# u.data.csv key = user id | item id | rating | timestamp
-# u.data.csv index=   [0]  |   [1]   |   [2]  |   [3]
-
 class Movie:
 
-    def __init__(self, dict):
+    def __init__(self, movie_id, movie_title):
 # movie id | movie title | release date | video release date |
 # IMDb URL
-        self.movie_movie_id = dict['movie_id']
-        self.movie_movie_title = dict['movie_title']
-        self.movie_release_date = dict['release_date']
-        self.movie_video_release_date = dict['video_release_date']
-        self.movie_imdb_url = dict['IMDb_URL']
-#supposed to print movie ID where movie id and rating id match. Does not.
-    # def average_rating(self, movie_list):
-    #     for rating in rating_list:
-    #         print(rating.rating_item_id)
-    #         if rating.rating_item_id == movie.movie_movie_id:
-    #             print(movie.movie_movie_id)
+        self.movie_movie_id = movie_id
+        self.movie_movie_title = movie_title
+
+    def __str__(self):
+        return "movie_id: " + str(self.movie_movie_id) + " movie_title: " + str(self.movie_movie_title) + " release_date: " + str(self.movie_release_date) + " IMDb_URL: " + str(self.movie_imdb_url)
 
 class User:
 
-    def __init__(self, dict):
-        self.user_user_id = dict['user_id']
-        self.user_age = dict['age']
-        self.user_gender = dict['gender']
-        self.user_occupation = dict['occupation']
-        self.user_zip_code = dict['zip_code']
+    def __init__(self, list):
+        self.user_user_id = user_id
+        self.user_age = age
+        self.user_gender = gender
+        self.user_occupation = occupation
+        self.user_zip_code = zip_code
+
+    def __str__(self):
+        return "user_id: " + str(self.user_user_id) + " age: " + str(self.user_age) + " gender: " + str(self.user_gender) + " occupation: " + str(self.user_occupation) + " zip_code: " + str(self.user_zip_code)
 
 class Rating:
 
-    def __init__(self, dict):
-        self.rating_user_id = dict['user_id']
-        self.rating_item_id = dict['item_id']
-        self.rating_rating = dict['rating']
-        self.rating_timestamp = dict['timestamp']
+    def __init__(self, list):
+        self.rating_user_id = user_id
+        self.rating_item_id = item_id
+        self.rating_rating = rating
+        self.rating_timestamp = timestamp
 
     def __str__(self):
-        return str(self.rating_item_id)
-        return str(self.rating_rating)
-
-    def gets_all_ratings(self, dict):
-        for rating.rating_item_id in rating_list:
-            test_list = []
-            test_list.append(rating.rating_rating)
-            print(test_list[0])
-    # def gets_average_rating(self, dict):
+        return "user_id: " + str(self.rating_user_id) + " item_id: " + str(self.rating_item_id) + " rating: " + str(self.rating_rating) + " timestamp: " + str(self.rating_timestamp)
 
 
 movie_list = []
 user_list = []
 rating_list = []
 all_ratings_for_movie = []
-with open('u.item.csv') as import_file: # automatically closes the file when done
-    reader = csv.DictReader(import_file, delimiter='|')
-    for row in reader:
-        movie = Movie(row)
-        #creates instance of object with attributes as keys to dictionary values
-        movie_list.append(movie)
-    # print(movie_list)
 
-with open('u.user.csv') as import_file: # automatically closes the file when done
-    reader = csv.DictReader(import_file, delimiter='|')
+with open('u.item.csv', encoding='latin_1') as import_item_file: # automatically closes the file when done
+    reader = csv.reader(import_item_file,  delimiter='|')
     for row in reader:
-        user = User(row)
-        user_list.append(user)
+        movie_list.append(Movie(row))
+    print(movie_list)
+
+with open('u.user.csv', encoding='latin_1') as import_user_file: # automatically closes the file when done
+    reader = csv.reader(import_user_file, delimiter='|')
+    for row in reader:
+        user_list.append(User(row))
     # print(user_list)
 
-with open('u.data.csv') as import_file: # automatically closes the file when done
-    reader = csv.DictReader(import_file, delimiter='\t')
+with open('u.data.csv', encoding='latin_1') as import_data_file: # automatically closes the file when done
+    reader = csv.reader(import_data_file, delimiter='\t')
     for row in reader:
-        rating = Rating(row)
-        rating_list.append(rating)
+        rating_list.append(Rating(row))
     # print(rating_list)
-
-# Movie.average_rating(movie, movie_list)
-Rating.gets_all_ratings(rating, rating_list)
-print(movie_list)
-#try this with list import instead of dictionary import
