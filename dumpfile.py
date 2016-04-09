@@ -75,15 +75,21 @@ with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EA
 # def find_all_ratings_by_movieid(ratings_data_list):
     #movie id number is index 1 in ratings_list
 # print(ratings_data_list)
+
 def find_all_ratings_by_movieid():
     ratings_list = []
     requested_movie = input("Please enter a Movie Id number: ")
     for lists in ratings_data_list:
         for index in lists:
             if index == requested_movie:
-                ratings_list.append(lists[2])
-    print(ratings_list)
+                ratings_list.append(int(lists[2]))
+    all_ratings_by_movieid = ratings_list
+    return all_ratings_by_movieid
 
+def find_average_rating_by_movieid(all_ratings_by_movieid):
+    average_rating_by_movieid = sum(all_ratings_by_movieid) / len(all_ratings_by_movieid)
+    print(average_rating_by_movieid)
 
-find_all_ratings_by_movieid()
+all_ratings_by_movieid = find_all_ratings_by_movieid()
+find_average_rating_by_movieid(all_ratings_by_movieid)
 # find_all_ratings_by_movieid()
