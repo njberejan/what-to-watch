@@ -102,7 +102,7 @@ def find_all_ratings_by_movieid():
 	requested_movie = input("Please enter a Movie ID number: ")
 	for lists in ratings_data_list:
 		for index in lists:
-			if index == requested_movie:
+			if lists[1] == requested_movie:
 				ratings_list.append(int(lists[2]))
 		ratings_dict[requested_movie] = ratings_list
 	all_ratings_by_movieid = ratings_dict
