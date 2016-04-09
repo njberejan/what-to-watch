@@ -87,14 +87,16 @@ with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EA
     #movie id number is index 1 in ratings_list
 # print(ratings_data_list)
 def find_all_ratings_by_userid():
-    user_ratings = {}
-    user_id = input("Please enter a User ID number: ")
-    for lists in ratings_data_list:
-        for index in lists:
-            if index == user_id:
-                user_ratings[user_id] = (int(lists[2]))
-    all_user_ratings = user_ratings
-    return all_user_ratings
+	user_dict = {}
+	user_list = []
+	user_id = input("Please enter a User ID number: ")
+	for lists in ratings_data_list:
+		for index in lists:
+			if lists[0] == user_id:
+				user_list.append(int(lists[2]))
+		user_dict[user_id] = user_list
+	all_user_ratings = user_dict
+	return all_user_ratings
 
 def find_all_ratings_by_movieid():
 	ratings_dict = {}
@@ -114,7 +116,7 @@ def find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie):
 
 all_ratings_by_movieid, requested_movie = find_all_ratings_by_movieid()
 print(all_ratings_by_movieid)
-# #returns dictinoary with key as entered value and value a list of all ratings for a movie by movie ID
+# #returns dictionary with key as entered value and value a list of all ratings for a movie by movie ID
 find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie)
 # #prints average score for a movie by ID, based on output from find_all_ratings_by_movieid()
 # Movie.movies_listed_by_title(movies)
