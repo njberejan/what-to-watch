@@ -108,13 +108,20 @@ def find_all_ratings_by_movieid():
 				ratings_list.append(int(lists[2]))
 		ratings_dict[requested_movie] = ratings_list
 	all_ratings_by_movieid = ratings_dict
-	return all_ratings_by_movieid, requested_movie
+	return all_ratings_by_movieid, requested_movie, ratings_dict
 
 def find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie):
     average_rating_by_movieid = sum(all_ratings_by_movieid[requested_movie]) / len(all_ratings_by_movieid[requested_movie])
     print(average_rating_by_movieid)
 
-all_ratings_by_movieid, requested_movie = find_all_ratings_by_movieid()
+def display_top_movies(all_ratings_by_movieid, requested_movie, ratings_dict):
+	movie_average_dict = {}
+	for key in ratings_dict:
+		if len(all_ratings_by_movieid[requested_movie]) > 5:
+			movie_average_dict[movie_id] = find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie)
+	print(movie_average_dict)
+
+all_ratings_by_movieid, requested_movie, ratings_dict = find_all_ratings_by_movieid()
 print(all_ratings_by_movieid)
 # #returns dictionary with key as entered value and value a list of all ratings for a movie by movie ID
 find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie)
@@ -125,3 +132,4 @@ find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie)
 # #prints title of movie by ID number provided
 # all_ratings_by_user = find_all_ratings_by_userid()
 # print(all_ratings_by_user)
+display_top_movies(all_ratings_by_movieid, requested_movie, ratings_dict)
