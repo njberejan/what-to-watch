@@ -1,98 +1,89 @@
 import csv
+
 class Movie:
-    def __init__(self, movie_id, title):
-        self.id = movie_id
-        self.title = title
+	def __init__(self, movie_id, title):
+		self.id = movie_id
+		self.title = title
 
-    def make_dict(self):
-        movie_dict = {}
-        movie_dict['movie_id'] = self.id
-        movie_dict['movie_title'] = self.title
-
-    # def __str__(self):
-    #     return 'Movie ID: ' + str(self.id) + ' Title: ' + str(self.title)
+	def __str__(self):
+		return '{}: {}'.format(self.id, self.title)
 
 class User:
-    def __init__(self, user_id, age, gender, occupation, zip_code):
-        self.id = user_id
-        self.age = age
-        self.gender = gender
-        self.occupation = occupation
-        self.zip_code = zip_code
+	def __init__(self, user_id, age, gender, occupation, zip_code):
+		self.id = user_id
+		self.age = age
+		self.gender = gender
+		self.occupation = occupation
+		self.zip_code = zip_code
 
-    def make_dict(self):
-        user_dict = {}
-        user_dict['user_id'] = self.id
-        user_dict['age'] = self.age
-        user_dict['gender'] = self.gender
-        user_dict['occupation'] = self.occupation
-        user_dict['zip_code'] = self.zip_code
-        return user_dict
-
-    def __str__(self):
-        return 'ID: ' + str(self.id) + ' Age: ' + str(self.age) + ' Gender: ' + str(self.gender) + ' Occupation: ' + str(self.occupation) + ' Zip Code: ' + str(self.zip_code)
+	def __str__(self):
+		return 'ID: {}, Age: {}, Gender: {}, Occupation {}, Zip Code: {}'.format(self.id, self.age, self.gender, self.occupation, self.zip_code)
 
 class Rating:
-    def __init__(self, user_id, item_id, rating):
-        self.user_id = user_id
-        self.item_id = item_id
-        self.rating = rating
+	def __init__(self, user_id, item_id, rating):
+		self.id = user_id
+		self.item_id = item_id
+		self.rating = rating
 
-    def make_dict(user):
-        rating_dict = {}
-        rating_dict['user_id'] = self.user_id
-        rating_dict['item_id'] = self.item_id
-        rating_dict['rating'] = self.rating
+	def __str__(self):
+		return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
 
-    def __str__(self):
-        return 'User ID: ' + str(self.user_id) + ' Item ID: ' + str(self.item_id) + ' Rating: ' + str(self.rating)
-
-movie_objects = []
-with open('u.item.csv') as import_item_file: # automatically closes the file when done
-    reader = csv.DictReader(import_item_file, fieldnames=['movie_id', 'movie_title'], delimiter='|')
-    headers = next(reader)
-    movies = {}
+movies = {}
+with open('u.item.csv', encoding='latin_1') as item_file:
+    reader = csv.DictReader(item_file, delimiter='|', fieldnames=['movie_id', 'title'])
     for row in reader:
-        # print(row['movie_id'], row['title'])
-        # print(Movie(row))
-        movie = Movie(row['movie_id'], row['movie_title'])
-        movies[movie.id] = movie
-        movie_objects.append(Movie(row['movie_id'], row['movie_title']))
-        print(movie)
-    # first_movie = movie_objects[0]
-    # print(first_movie)
+        movie = Movie(row['movie_id'], row['title'])
+        movies[movie.id] = movie #creates dict "movies" with the movie ID as the key and the title as the value
+    # print(movie)
 
-# for row['movie_id'] in movie_objects:
-#     print('hi')
-
-user_objects = []
-with open('u.user.csv') as import_user_file:
-    reader = csv.DictReader(import_user_file, fieldnames=['user_id', 'age', 'gender', 'occupation', 'zip_code'], delimiter='|')
-    headers = next(reader)
+users = {}
+with open('u.user.csv', encoding='latin_1') as user_file:
+    reader = csv.DictReader(user_file, delimiter='|', fieldnames=['user_id', 'age', 'gender', 'occupation', 'zip_code'])
     for row in reader:
-        user_id = row['user_id']
-        age = row['age']
-        gender = row['gender']
-        occupation = row['occupation']
-        zip_code = row['zip_code']
-        user_objects.append(User(user_id, age, gender, occupation, zip_code))
-    # first_user = user_objects[0]
-    # print(first_user)
+        user = User(row['user_id'], row['age'], row['gender'], row['occupation'], row['zip_code'])
+        users[user.id] = user #creates dictionary "users" with user ID as the key and THE OBJECT AS THE VALUE
+    print(users['1'])
+    print(users['1'].occupation)
 
-rating_objects = []
-with open('u.data.csv') as import_rating_file:
-    reader = csv.DictReader(import_rating_file, fieldnames=['user_id', 'item_id', 'rating'], delimiter='\t')
-    headers = next(reader)
+ratings_data_list = []
+with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EACH LINE AS A LIST
+    reader = csv.reader(ratings_file, delimiter='\t')
+    head = next(reader)
     for row in reader:
-        user_id = row['user_id']
-        item_id = row['item_id']
-        rating = row['rating']
-        rating_objects.append(Rating(user_id, item_id, rating).make_dict)
-    # first_rating = rating_objects[0]
-    # print(first_rating)
+        ratings_data_list.append(row)
+
+    # print(ratings_data_list)
+# print(a_list[0][0]) #example of how to iterate through a list in a list to find a specific value.
+# for lists in a_list:
+# 	for index in lists:
+# 		if index == '881250949':
+# 			print(lists[2]) #this example returns the scores associated with this time stamp(useless, i know.)
+#
+# for lists in a_list:
+# 	for index in lists:
+# 		if index == '242':
+# 			pass
+# 			# print(lists[2]) #this example returns ALL SCORES FOR AN ITEM ID
+#
+# reviews = []
+# for lists in a_list:
+# 	for index in lists:
+# 		if index == '242':
+# 			reviews.append(lists[2]) #this will print  ALL SCORES FOR AN ITEM ID
+# 			# print(reviews)			 #could be easily made into a function...
+
+# def find_all_ratings_by_movieid(ratings_data_list):
+    #movie id number is index 1 in ratings_list
+# print(ratings_data_list)
+def find_all_ratings_by_movieid():
+    ratings_list = []
+    requested_movie = input("Please enter a Movie Id number: ")
+    for lists in ratings_data_list:
+        for index in lists:
+            if index == requested_movie:
+                ratings_list.append(lists[2])
+    print(ratings_list)
 
 
-# print(user_objects[0].make_dict())
-# print(user_objects[1].make_dict())
-print(movie_objects[0])
-# print(user_objects[:].make_dict())
+find_all_ratings_by_movieid()
+# find_all_ratings_by_movieid()
