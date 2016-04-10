@@ -46,13 +46,28 @@ class Rating:
         user_list = []
         user_id = input("Please enter a User ID number: ")
         for objects in ratings_data_list:
-                if objects.id == user_id:
-                    user_list.append(objects.rating)
+            if objects.id == user_id:
+                user_list.append(objects.rating)
         user_dict[user_id] = user_list
         all_user_ratings = user_dict
         return all_user_ratings
 
+    def find_all_ratings_by_movieid(ratings_data_list):
+        #returns dictionary with key Movie ID and value list of all reviews for movie
+        ratings_dict = {}
+        ratings_list = []
+        movie_id = input("Please enter a Movie ID number: ")
+        for objects in ratings_data_list:
+            if objects.item_id == movie_id:
+                ratings_list.append(int(objects.rating))
+            ratings_dict[movie_id] = ratings_list
+        all_ratings_by_movieid = ratings_dict
+        return all_ratings_by_movieid, movie_id, ratings_list
 
+    def find_average_rating_by_movieid(ratings_list):
+        #returns average rating for movie by movie ID. Must first run find_all_ratings_by_movieid, however.
+        average_rating_by_movieid = sum(ratings_list) / int(len(ratings_list))
+        return average_rating_by_movieid
 
 movies = {}
 with open('u.item.csv', encoding='latin_1') as item_file:
@@ -78,67 +93,11 @@ with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EA
     for row in reader:
         rating = Rating(row)
         ratings_data_list.append(rating)
+
 print(ratings_data_list[0])
 all_ratings_by_user = Rating.find_all_ratings_by_userid(ratings_data_list)
 print(all_ratings_by_user)
-    # print(ratings_data_list)
-# print(a_list[0][0]) #example of how to iterate through a list in a list to find a specific value.
-# for lists in a_list:
-# 	for index in lists:
-# 		if index == '881250949':
-# 			print(lists[2]) #this example returns the scores associated with this time stamp(useless, i know.)
-#
-# for lists in a_list:
-# 	for index in lists:
-# 		if index == '242':
-# 			pass
-# 			# print(lists[2]) #this example returns ALL SCORES FOR AN ITEM ID
-#
-# reviews = []
-# for lists in a_list:
-# 	for index in lists:
-# 		if index == '242':
-# 			reviews.append(lists[2]) #this will print  ALL SCORES FOR AN ITEM ID
-# 			# print(reviews)			 #could be easily made into a function...
-
-# def find_all_ratings_by_movieid(ratings_data_list):
-    #movie id number is index 1 in ratings_list
-# print(ratings_data_list)
-def find_all_ratings_by_userid():
-    user_ratings = []
-    user_id = input("Please enter a User ID number: ")
-    for lists in ratings_data_list:
-        for index in lists:
-            if index == user_id:
-                user_ratings.append(int(lists[2]))
-    all_user_ratings = user_ratings
-    return all_user_ratings
-
-def find_all_ratings_by_movieid():
-    ratings_list = []
-    requested_movie = input("Please enter a Movie ID number: ")
-    for lists in ratings_data_list:
-        for index in lists:
-            if index == requested_movie:
-                ratings_list.append(int(lists[2]))
-    all_ratings_by_movieid = ratings_list
-    return all_ratings_by_movieid
-
-def find_average_rating_by_movieid(all_ratings_by_movieid):
-    average_rating_by_movieid = sum(all_ratings_by_movieid) / len(all_ratings_by_movieid)
-    print(average_rating_by_movieid)
-
-# def display_top_movies():
-#
-#
-#
-# all_ratings_by_movieid = find_all_ratings_by_movieid()
-# #returns list of all ratings for a movie by movie ID
-# find_average_rating_by_movieid(all_ratings_by_movieid)
-# #prints average score for a movie by ID, based on output from find_all_ratings_by_movieid()
-# Movie.movies_listed_by_title(movies)
-# #asks user to input part of a title and returns list of all matches containing part of that title
-# Movie.find_title_by_id(movies)
-# #prints title of movie by ID number provided
-# all_ratings_by_user = find_all_ratings_by_userid()
-# print(all_ratings_by_user)
+all_ratings_by_movie, movie_id, ratings_list = Rating.find_all_ratings_by_movieid(ratings_data_list)
+print(all_ratings_by_movie)
+average_by_movie = Rating.find_average_rating_by_movieid(ratings_list)
+print(average_by_movie)
