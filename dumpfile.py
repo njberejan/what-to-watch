@@ -69,6 +69,34 @@ class Rating:
         average_rating_by_movieid = sum(ratings_list) / int(len(ratings_list))
         return average_rating_by_movieid
 
+    def find_all_ratings_for_all_movies(ratings_data_list):
+        #freezes command line. Theoretically returns dictionary with movie ID as key and list of all ratings as value for every movie
+        all_ratings_dict = {}
+        all_ratings_list = []
+        for objects in ratings_data_list:
+            for objects.item_id in ratings_data_list:
+                all_ratings_list.append(int(objects.rating))
+        all_ratings_dict[Rating.item_id] = all_ratings_list
+        return all_ratings_dict, all_ratings_list
+
+    def gets_average_rating_for_all_movies(all_ratings_dict):
+        all_average_ratings = {}
+        for objects.item_id in all_ratings_dict:
+            all_average_ratings[objects.item_id] = (sum(all_ratings_dict[objects.item_id]) / len(all_ratings_dict[objects.item_id]))
+        return all_average_ratings
+
+    # def gets_top_movies(ratings_data_list, ratings_list):
+    #     top_movies = []
+    #     for objects in ratings_data_list:
+    #         if objects.find_average_rating_by_movieid(ratings_list) > 3:
+    #             top_movies.append(objects.item_id, objects.find_average_rating_by_movid(ratings_list))
+    #     return top_movies
+
+
+    # def get_top_movies(find_average_rating_by_movieid, ratings_data_list):
+    #     for objects in ratings_data_list:
+    #         if find_average_rating_by_movieid(ratings_list)
+
 movies = {}
 with open('u.item.csv', encoding='latin_1') as item_file:
     reader = csv.DictReader(item_file, delimiter='|', fieldnames=['movie_id', 'title'])
@@ -94,10 +122,18 @@ with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EA
         rating = Rating(row)
         ratings_data_list.append(rating)
 
-print(ratings_data_list[0])
-all_ratings_by_user = Rating.find_all_ratings_by_userid(ratings_data_list)
-print(all_ratings_by_user)
-all_ratings_by_movie, movie_id, ratings_list = Rating.find_all_ratings_by_movieid(ratings_data_list)
-print(all_ratings_by_movie)
-average_by_movie = Rating.find_average_rating_by_movieid(ratings_list)
-print(average_by_movie)
+for index[2] in ratings_data_list
+
+# # print(ratings_data_list[0])
+# all_ratings_by_user = Rating.find_all_ratings_by_userid(ratings_data_list)
+# # print(all_ratings_by_user)
+# all_ratings_by_movie, movie_id, ratings_list = Rating.find_all_ratings_by_movieid(ratings_data_list)
+# # print(all_ratings_by_movie)
+# average_by_movie = Rating.find_average_rating_by_movieid(ratings_list)
+# # print(average_by_movie)
+# top_movies = Rating.gets_top_movies(ratings_data_list, ratings_list)
+# print(top_movies)
+all_ratings_dict = Rating.find_all_ratings_for_all_movies(ratings_data_list)
+print(all_ratings_dict)
+# all_average_rating_dict = Rating.gets_average_rating_for_all_movies(all_ratings_dict)
+# print(all_average_rating_dict)
