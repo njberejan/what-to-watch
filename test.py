@@ -68,9 +68,24 @@ movie_ratings_dict = gets_ratings_file_data()
 movie_dict = gets_item_file_data(movie_ratings_dict)
 #print debugging stuff
 print(movie_dict[1].title)
-movie = movie_dict[123]
-print(movie.id, movie.title)
+# movie = movie_dict[123]
+# print(movie.ratings)
+# print(movie.ratings[0])
+# print(movie.ratings[0][1])
+ratings = []
 
+for movie_id in movie_dict:
+	movie = movie_dict[movie_id]
+	for rating in movie.ratings:
+		ratings.append(rating[1])
+print(ratings)
+
+
+# test_list = []
+# for movie_object in movie_dict:
+# 	for movie_object.ratings in movie_object:
+# 		test_list = test_list.append(objects.ratings[0])
+# print(test_list)
 
 # print(movie_ratings_dict)
 
