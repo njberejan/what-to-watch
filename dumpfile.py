@@ -30,14 +30,14 @@ class User:
 	def __str__(self):
 		return 'ID: {}, Age: {}, Gender: {}, Occupation {}, Zip Code: {}'.format(self.id, self.age, self.gender, self.occupation, self.zip_code)
 
-# class Rating:
-# 	def __init__(self, user_id, item_id, rating):
-# 		self.id = user_id
-# 		self.item_id = item_id
-# 		self.rating = rating
-#
-# 	def __str__(self):
-# 		return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
+class Rating:
+	def __init__(self, row):
+		self.id = row[0]
+		self.item_id = row[1]
+		self.rating = row[2]
+
+	def __str__(self):
+		return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
 
 movies = {}
 with open('u.item.csv', encoding='latin_1') as item_file:
@@ -61,7 +61,9 @@ with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EA
     reader = csv.reader(ratings_file, delimiter='\t')
     head = next(reader)
     for row in reader:
-        ratings_data_list.append(row)
+        rating = Rating(row)
+        ratings_data_list.append(rating)
+print(ratings_data_list[0].rating)
 
     # print(ratings_data_list)
 # print(a_list[0][0]) #example of how to iterate through a list in a list to find a specific value.
@@ -110,17 +112,17 @@ def find_average_rating_by_movieid(all_ratings_by_movieid):
     average_rating_by_movieid = sum(all_ratings_by_movieid) / len(all_ratings_by_movieid)
     print(average_rating_by_movieid)
 
-def display_top_movies():
-
-
-
-all_ratings_by_movieid = find_all_ratings_by_movieid()
-#returns list of all ratings for a movie by movie ID
-find_average_rating_by_movieid(all_ratings_by_movieid)
-#prints average score for a movie by ID, based on output from find_all_ratings_by_movieid()
-Movie.movies_listed_by_title(movies)
-#asks user to input part of a title and returns list of all matches containing part of that title
-Movie.find_title_by_id(movies)
-#prints title of movie by ID number provided
-all_ratings_by_user = find_all_ratings_by_userid()
-print(all_ratings_by_user)
+# def display_top_movies():
+#
+#
+#
+# all_ratings_by_movieid = find_all_ratings_by_movieid()
+# #returns list of all ratings for a movie by movie ID
+# find_average_rating_by_movieid(all_ratings_by_movieid)
+# #prints average score for a movie by ID, based on output from find_all_ratings_by_movieid()
+# Movie.movies_listed_by_title(movies)
+# #asks user to input part of a title and returns list of all matches containing part of that title
+# Movie.find_title_by_id(movies)
+# #prints title of movie by ID number provided
+# all_ratings_by_user = find_all_ratings_by_userid()
+# print(all_ratings_by_user)

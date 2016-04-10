@@ -31,10 +31,11 @@ class User:
 		return 'ID: {}, Age: {}, Gender: {}, Occupation {}, Zip Code: {}'.format(self.id, self.age, self.gender, self.occupation, self.zip_code)
 
 class Rating:
-	def __init__(self, row):
-		self.id = row[0]
-		self.item_id = row[1]
-		self.rating = row[2]
+    def __init__(self, user_id, item_id, rating, timestamp):
+        self.id = user_id
+        self.item_id = item_id
+        self.rating = rating
+        self.timestamp = timestamp
 
     def __str__(self):
         return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
@@ -91,14 +92,14 @@ with open('u.user.csv', encoding='latin_1') as user_file:
     print(users['1'])
     print(users['1'].occupation)
 
-ratings_data_list = []
+ratings = {}
 with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EACH LINE AS A LIST
-    reader = csv.reader(ratings_file, delimiter='\t')
-    head = next(reader)
+    reader = csv.DictReader(ratings_file, delimiter='\t', fieldnames=['user_id', 'item_id',	'rating', 'timestamp'])
     for row in reader:
-        rating = Rating(row)
-        ratings_data_list.append(rating)
-print(ratings_data_list[0].rating)
+        rating = Rating(row['user_id'], row['item_id'], row['rating'], row['timestamp'])
+        ratings[rating.timestamp] = rating
+    print(ratings['881250949'])
+    print(ratings['881250949'].item_id)
 
 
 # print(a_list[0][0]) #example of how to iterate through a list in a list to find a specific value.
