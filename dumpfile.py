@@ -31,13 +31,28 @@ class User:
 		return 'ID: {}, Age: {}, Gender: {}, Occupation {}, Zip Code: {}'.format(self.id, self.age, self.gender, self.occupation, self.zip_code)
 
 class Rating:
-	def __init__(self, row):
-		self.id = row[0]
-		self.item_id = row[1]
-		self.rating = row[2]
 
-	def __str__(self):
-		return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
+    def __init__(self, row):
+        self.id = row[0]
+        self.item_id = row[1]
+        self.rating = row[2]
+
+    def __str__(self):
+        return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
+
+    def find_all_ratings_by_userid(ratings_data_list):
+        #returns dictionary with key User ID and value list of all reviews from user
+        user_dict = {}
+        user_list = []
+        user_id = input("Please enter a User ID number: ")
+        for objects in ratings_data_list:
+                if objects.id == user_id:
+                    user_list.append(objects.rating)
+        user_dict[user_id] = user_list
+        all_user_ratings = user_dict
+        return all_user_ratings
+
+
 
 movies = {}
 with open('u.item.csv', encoding='latin_1') as item_file:
@@ -63,8 +78,9 @@ with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EA
     for row in reader:
         rating = Rating(row)
         ratings_data_list.append(rating)
-print(ratings_data_list[0].rating)
-
+print(ratings_data_list[0])
+all_ratings_by_user = Rating.find_all_ratings_by_userid(ratings_data_list)
+print(all_ratings_by_user)
     # print(ratings_data_list)
 # print(a_list[0][0]) #example of how to iterate through a list in a list to find a specific value.
 # for lists in a_list:
