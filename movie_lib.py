@@ -1,104 +1,141 @@
 import csv
-
-# u.data.csv key = user id | item id | rating | timestamp
-# u.data.csv index=   [0]  |   [1]   |   [2]  |   [3]
-
-
 class Movie:
-
-    def __init__(self, dict):
-# movie id | movie title | release date | video release date |
-# IMDb URL
-        self.movie_movie_id = dict['movie_id']
-        self.movie_movie_title = dict['movie_title']
-        self.movie_release_date = dict['release_date']
-        self.movie_video_release_date = dict['video_release_date']
-        self.movie_imdb_url = dict['IMDb_URL']
+    def __init__(self, movie_id, title):
+        self.id = movie_id
+        self.title = title
 
     def __str__(self):
-        return "movie_id: " + str(self.movie_movie_id) + " movie_title: " + str(self.movie_movie_title) + " release_date: " + str(self.movie_release_date) + " IMDb_URL: " + str(self.movie_imdb_url)
+        return '{}: {}'.format(self.id, self.title)
 
-#supposed to print movie ID where movie id and rating id match. Does not.
-    # def average_rating(self, movie_list):
-    #     for rating in rating_list:
-    #         print(rating.rating_item_id)
-    #         if rating.rating_item_id == movie.movie_movie_id:
-    #             print(movie.movie_movie_id)
+    def movies_listed_by_title(self):
+        movies_list = [movies[key] for key in movies]
+        user_input = input('Enter part of a movie title: ').lower()
+        for movie in movies_list:
+            if user_input in movie.title.lower():
+                print(movie)
+
+    def find_title_by_id(self):
+        key = input('Enter the movie ID number: ')
+        print(movies.get(key))
+
 
 class User:
+	def __init__(self, user_id, age, gender, occupation, zip_code):
+		self.id = user_id
+		self.age = age
+		self.gender = gender
+		self.occupation = occupation
+		self.zip_code = zip_code
 
-    def __init__(self, dict):
-        self.user_user_id = dict['user_id']
-        self.user_age = dict['age']
-        self.user_gender = dict['gender']
-        self.user_occupation = dict['occupation']
-        self.user_zip_code = dict['zip_code']
-
-    def __str__(self):
-        return "user_id: " + str(self.user_user_id) + " age: " + str(self.user_age) + " gender: " + str(self.user_gender) + " occupation: " + str(self.user_occupation) + " zip_code: " + str(self.user_zip_code)
+	def __str__(self):
+		return 'ID: {}, Age: {}, Gender: {}, Occupation {}, Zip Code: {}'.format(self.id, self.age, self.gender, self.occupation, self.zip_code)
 
 class Rating:
-
-    def __init__(self, dict):
-        self.rating_user_id = dict['user_id']
-        self.rating_item_id = dict['item_id']
-        self.rating_rating = dict['rating']
-        self.rating_timestamp = dict['timestamp']
+    def __init__(self, user_id, item_id, rating, timestamp):
+        self.id = user_id
+        self.item_id = item_id
+        self.rating = rating
+        self.timestamp = timestamp
 
     def __str__(self):
-        return "user_id: " + str(self.rating_user_id) + " item_id: " + str(self.rating_item_id) + " rating: " + str(self.rating_rating) + " timestamp: " + str(self.rating_timestamp)
+        return 'User ID: {}, Item ID: {}, Rating: {}'.format(self.id, self.item_id, self.rating)
 
-    # def gets_all_ratings(self, dict):
-    #     #returns just list of 3s right now.
-    #     test_list = []
-    #     for self.rating_item_id in rating_list:
-    #         test_list.append(self.rating_rating)
-    #     print(len(test_list))
-    # # def gets_average_rating(self, dict):
+    def find_all_ratings_by_userid(self):
+    	user_dict = {}
+    	user_list = []
+    	user_id = input("Please enter a User ID number: ")
+    	for objects in ratings:
+    		if ratings[rating.timestamp] == user_id:
+    			user_list.append(ratings[rating.rating])
+    		user_dict[user_id] = user_list
+    	all_user_ratings = user_dict
+    	return all_user_ratings
 
+    # def find_all_ratings_by_movieid(self):
+    # 	ratings_dict = {}
+    # 	ratings_list = []
+    # 	requested_movie = input("Please enter a Movie ID number: ")
+    # 	for lists in ratings_data_list:
+    # 		for index in lists:
+    # 			if lists[1] == requested_movie:
+    # 				ratings_list.append(int(lists[2]))
+    # 		ratings_dict[requested_movie] = ratings_list
+    # 	all_ratings_by_movieid = ratings_dict
+    # 	return all_ratings_by_movieid, requested_movie, ratings_dict
+    #
+    # def find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie):
+    #     average_rating_by_movieid = sum(all_ratings_by_movieid[requested_movie]) / len(all_ratings_by_movieid[requested_movie])
+    #     print(average_rating_by_movieid)
+    #
+    # def display_top_movies(all_ratings_by_movieid, requested_movie, ratings_dict):
+    # 	movie_average_dict = {}
+    # 	for key in ratings_dict:
+    # 		if len(all_ratings_by_movieid[requested_movie]) > 5:
+    # 			movie_average_dict[movie_id] = find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie)
+    # 	print(movie_average_dict)
 
-movie_list = []
-user_list = []
-rating_list = []
-all_ratings_for_movie = []
-
-with open('u.item.csv') as import_item_file: # automatically closes the file when done
-    reader = csv.DictReader(import_item_file, fieldnames=['movie_id', 'movie_title', '', '', 'something_else'], delimiter='|')
+movies = {}
+with open('u.item.csv', encoding='latin_1') as item_file:
+    reader = csv.DictReader(item_file, delimiter='|', fieldnames=['movie_id', 'title'])
     for row in reader:
-        # movie = Movie(row)
-        movie_list.append(Movie(row))
-    # print(movie_list)
+        movie = Movie(row['movie_id'], row['title'])
+        movies[movie.id] = movie #creates dict "movies" with the movie ID as the key and the title as the value
+    print(movies['1'])
+    print(movies['1'].title)
 
-with open('u.user.csv') as import_user_file: # automatically closes the file when done
-    reader = csv.DictReader(import_user_file, fieldnames=['movie_id', 'movie_title', '', '', 'something_else'], delimiter='|')
+users = {}
+with open('u.user.csv', encoding='latin_1') as user_file:
+    reader = csv.DictReader(user_file, delimiter='|', fieldnames=['user_id', 'age', 'gender', 'occupation', 'zip_code'])
     for row in reader:
-        # user = User(row)
-        user_list.append(User(row))
-    # print(user_list)
+        user = User(row['user_id'], row['age'], row['gender'], row['occupation'], row['zip_code'])
+        users[user.id] = user #creates dictionary "users" with user ID as the key and THE OBJECT AS THE VALUE
+    print(users['1'])
+    print(users['1'].occupation)
 
-with open('u.data.csv') as import_data_file: # automatically closes the file when done
-    reader = csv.DictReader(import_data_file, fieldnames=['movie_id', 'movie_title', '', '', 'something_else'], delimiter='\t')
+ratings = {}
+with open('u.data.csv', encoding='latin_1') as ratings_file: #CREATES LIST OF EACH LINE AS A LIST
+    reader = csv.DictReader(ratings_file, delimiter='\t', fieldnames=['user_id', 'item_id',	'rating', 'timestamp'])
     for row in reader:
-        # rating = Rating(row)
-        rating_list.append(Rating(row))
-    # print(rating_list)
+        rating = Rating(row['user_id'], row['item_id'], row['rating'], row['timestamp'])
+        ratings[rating.timestamp] = rating
+    print(ratings['881250949'])
+    print(ratings['881250949'].item_id)
 
-# Movie.average_rating(movie, movie_list)
-# Rating.gets_all_ratings(Rating(row), rating_list)
-# for rating in rating_list:
-print('Rating List: ' + str(rating_list[0])) #prints the item_id of the indexed object. Why not other aspects of object?
-print('User List: ' + str(user_list[0]))
-print('Movie List: ' + str(movie_list[0]))
-test_list = []
 
-for Rating.rating_item_id in rating_list:
-    if Rating['item_id'] == 242:
-        print("hi")
-#         test_list.append(Rating.get('rating'))
-# print(test_list)
+# print(a_list[0][0]) #example of how to iterate through a list in a list to find a specific value.
+# for lists in a_list:
+# 	for index in lists:
+# 		if index == '881250949':
+# 			print(lists[2]) #this example returns the scores associated with this time stamp(useless, i know.)
+#
+# for lists in a_list:
+# 	for index in lists:
+# 		if index == '242':
+# 			pass
+# 			# print(lists[2]) #this example returns ALL SCORES FOR AN ITEM ID
+#
+# reviews = []
+# for lists in a_list:
+# 	for index in lists:
+# 		if index == '242':
+# 			reviews.append(lists[2]) #this will print  ALL SCORES FOR AN ITEM ID
+# 			# print(reviews)			 #could be easily made into a function...
 
-with open('u.item.csv') as import_item_file: # automatically closes the file when done
-    reader = csv.DictReader(import_item_file, fieldnames=['movie_id', 'movie_title', '', '', 'something_else'], delimiter='|')
-    for row in reader:
-        # movie = Movie(row)
-        print(row['movie_id'], row['title'])
+# def find_all_ratings_by_movieid(ratings_data_list):
+    #movie id number is index 1 in ratings_list
+# print(ratings_data_list)
+
+# all_ratings_by_movieid, requested_movie, ratings_dict = find_all_ratings_by_movieid()
+# print(all_ratings_by_movieid)
+# # #returns dictionary with key as entered value and value a list of all ratings for a movie by movie ID
+# find_average_rating_by_movieid(all_ratings_by_movieid, requested_movie)
+# # #prints average score for a movie by ID, based on output from find_all_ratings_by_movieid()
+# # Movie.movies_listed_by_title(movies)
+# # #asks user to input part of a title and returns list of all matches containing part of that title
+# # Movie.find_title_by_id(movies)
+# # #prints title of movie by ID number provided
+# # all_ratings_by_user = find_all_ratings_by_userid()
+# # print(all_ratings_by_user)
+# display_top_movies(all_ratings_by_movieid, requested_movie, ratings_dict)
+all_user_ratings = Rating.find_all_ratings_by_userid(rating)
+print(all_user_ratings)
