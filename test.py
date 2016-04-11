@@ -1,5 +1,6 @@
 import csv
 import operator
+import numpy as np
 class Movie:
 	def __init__(self, movie_id, title, movie_ratings_dict):
 		self.id = movie_id
@@ -89,9 +90,14 @@ all_ratings_dict = Movie.get_all_ratings_for_a_movie(Movie, movie_dict)
 all_average_scores_dict = Movie.get_average_score_for_every_movie(Movie, all_ratings_dict)
 # print(all_average_scores_dict)
 
+#attempt to get 95th percentile of average scores in dict
 sorted_averages = sorted(all_average_scores_dict.items(), key=operator.itemgetter(1))
 print(sorted_averages)
-Movie.find_title_by_id(Movie)
+print(np.percentile(sorted_averages, 95))
+
+
+
+# Movie.find_title_by_id(Movie)
 #print debugging stuff
 # movie = movie_dict[123]
 # print(movie.ratings)
