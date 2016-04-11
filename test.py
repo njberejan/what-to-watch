@@ -1,6 +1,6 @@
 import csv
 import operator
-import numpy as np
+
 class Movie:
 	def __init__(self, movie_id, title, movie_ratings_dict):
 		self.id = movie_id
@@ -90,17 +90,12 @@ all_ratings_dict = Movie.get_all_ratings_for_a_movie(Movie, movie_dict)
 all_average_scores_dict = Movie.get_average_score_for_every_movie(Movie, all_ratings_dict)
 # print(all_average_scores_dict)
 
-#attempt to get 95th percentile of average scores in dict
+#attempt to get 95th percentile of average scores in dict. How to get add second values in tuple without pulling into second list?
 sorted_averages = sorted(all_average_scores_dict.items(), key=operator.itemgetter(1))
 print(sorted_averages)
-print(np.percentile(sorted_averages, 95))
-
-
-
-# Movie.find_title_by_id(Movie)
-#print debugging stuff
-# movie = movie_dict[123]
-# print(movie.ratings)
-# print(movie.ratings[0])
-# print(movie.ratings[0][1])
-# Movie.get_all_ratings_for_a_movie(Movie)
+sorted_values = []
+for value1, value2 in sorted_averages:
+	sorted_values.append(value2)
+print(sorted_values)
+import numpy as np #attempt to import numpy to get 95 percentile below
+print(np.percentile(sorted_values, 95))
